@@ -8,8 +8,8 @@ import com.example.projetocompose02.data.models.Student
 data class SchoolWithStudents(
     @Embedded val school: School,
     @Relation(
-        parentColumn = "schoolName",
-        entityColumn = "schoolName"
+        parentColumn = "schoolId",
+        entityColumn = "studentsSchoolId"
     )
     val students: List<Student>
 ) {
