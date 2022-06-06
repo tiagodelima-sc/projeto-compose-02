@@ -10,7 +10,6 @@ import com.example.projetocompose02.data.daos.SubjectDao
 import com.example.projetocompose02.data.models.School
 import com.example.projetocompose02.data.models.Student
 import com.example.projetocompose02.data.models.Subject
-import com.example.projetocompose02.data.models.relations.StudentSubjectCrossRef
 
 
 @Database(
@@ -18,7 +17,6 @@ import com.example.projetocompose02.data.models.relations.StudentSubjectCrossRef
         School::class,
         Student::class,
         Subject::class,
-        StudentSubjectCrossRef::class
     ],
     version = 1,
     exportSchema = false

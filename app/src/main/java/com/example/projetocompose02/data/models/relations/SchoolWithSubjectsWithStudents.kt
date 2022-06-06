@@ -9,14 +9,14 @@ data class SchoolWithSubjectsWithStudents(
     @Embedded val school: School,
     @Relation(
         entity = Subject::class,
-        parentColumn = "studentId",
-        entityColumn = "subjectId"
+        parentColumn = "schoolName1",
+        entityColumn = "id"
     )
     val subject01: SubjectWithStudents,
     @Relation(
         entity = Subject::class,
-        parentColumn = "studentId",
-        entityColumn = "subjectId"
+        parentColumn = "schoolName2",
+        entityColumn = "id"
     )
     val subject02: SubjectWithStudents,
 ) {

@@ -9,9 +9,8 @@ import com.example.projetocompose02.data.models.Subject
 data class StudentWithSubjects(
     @Embedded val student: Student,
     @Relation(
-        parentColumn = "studentId",
-        entityColumn = "subjectId",
-        associateBy = Junction(StudentSubjectCrossRef::class)
+        parentColumn = "schoolName",
+        entityColumn = "id",
     )
     val subjects: List<Subject>
 ) {

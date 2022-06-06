@@ -5,6 +5,7 @@ import com.example.projetocompose02.data.models.School
 import com.example.projetocompose02.data.models.relations.*
 import kotlinx.coroutines.flow.Flow
 
+
 @Dao
 interface SchoolDao {
 
@@ -21,7 +22,7 @@ interface SchoolDao {
     fun getSchool(): Flow<List<School>>
 
     @Transaction
-    @Query("SELECT * FROM student")
+    @Query("SELECT * FROM school")
     fun getSchoolWithSubjectsWithStudents(): Flow<List<SchoolWithSubjectsWithStudents>>
 
 }

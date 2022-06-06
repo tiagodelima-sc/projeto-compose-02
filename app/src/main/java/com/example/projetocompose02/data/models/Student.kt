@@ -1,14 +1,27 @@
 package com.example.projetocompose02.data.models
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "student")
+@Entity(
+    tableName = "student",
+    foreignKeys = [
+        ForeignKey(
+            entity = School::class,
+            parentColumns = arrayOf("id"),
+            childColumns = arrayOf("schoolName"),
+            onDelete = ForeignKey.SET_NULL,
+            onUpdate = ForeignKey.CASCADE
+        )
+    ]
+)
+
 data class Student(
     @PrimaryKey(autoGenerate = true)
-    val studentId: Int = 0,
+    val id: Int = 0,
     val semester: Int,
     val age: Int,
-    val schoolName: String
+    val schoolName: String? = null
 ) {
 }
