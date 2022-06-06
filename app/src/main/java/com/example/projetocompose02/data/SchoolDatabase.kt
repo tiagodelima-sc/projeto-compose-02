@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.example.projetocompose02.data.daos.SchoolDao
 import com.example.projetocompose02.data.daos.StudentDao
 import com.example.projetocompose02.data.daos.SubjectDao
-import com.example.projetocompose02.data.models.Director
 import com.example.projetocompose02.data.models.School
 import com.example.projetocompose02.data.models.Student
 import com.example.projetocompose02.data.models.Subject
@@ -18,7 +17,6 @@ import com.example.projetocompose02.data.models.relations.StudentSubjectCrossRef
     entities = [
         School::class,
         Student::class,
-        Director::class,
         Subject::class,
         StudentSubjectCrossRef::class
     ],

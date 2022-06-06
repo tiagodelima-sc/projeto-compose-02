@@ -22,6 +22,6 @@ interface SchoolDao {
 
     @Transaction
     @Query("SELECT * FROM student")
-    fun getSchoolWithStudents(): Flow<List<SchoolWithStudents>>
+    fun getSchoolWithSubjectsWithStudents(): Flow<List<SchoolWithSubjectsWithStudents>>
 
 }
