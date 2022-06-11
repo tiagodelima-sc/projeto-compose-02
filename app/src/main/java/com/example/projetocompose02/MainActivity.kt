@@ -14,12 +14,8 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.BlendMode.Companion.Screen
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
@@ -28,9 +24,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.projetocompose02.ui.theme.ProjetoCompose02Theme
 import com.example.projetocompose02.views.school.SchoolViewModel
-import com.example.projetocompose02.views.school.StudentsScreen
 import com.example.projetocompose02.views.student.StudentViewModel
 import com.example.projetocompose02.views.subject.SubjectViewModel
+import com.example.projetocompose02.views.school.SchoolsScreen
+import com.example.projetocompose02.views.student.StudentsScreen
+import com.example.projetocompose02.views.subject.SubjectsScreen
+
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -119,13 +119,13 @@ fun SchoolApp(
             startDestination = ScreenApp.SchoolsScreen.route
         ) {
             composable(ScreenApp.SchoolsScreen.route) {
-                ScreenApp.SchoolsScreen
+                SchoolsScreen()
             }
             composable(ScreenApp.StudentsScreen.route) {
-                ScreenApp.StudentsScreen
+                StudentsScreen()
             }
             composable(ScreenApp.SubjectsScreen.route) {
-                ScreenApp.SubjectsScreen
+                SubjectsScreen()
             }
             composable(ScreenApp.SchoolDetails.route) {
 
@@ -151,10 +151,10 @@ sealed class ScreenApp(
     @DrawableRes val icon: Int,
     @StringRes val name: Int,
 ) {
-    object SubjectsScreen : ScreenApp("subject", R.drawable.subject_icon2, R.string.subject)
-    object StudentsScreen : ScreenApp("student", R.drawable.student_icon, R.string.student)
-    object SchoolsScreen : ScreenApp("school", R.drawable.school_icon, R.string.school)
-    object SubjectDetails : ScreenApp("subject_details", R.drawable.subject_icon2, R.string.subject)
-    object StudentDetails : ScreenApp("student_details", R.drawable.student_icon, R.string.student)
-    object SchoolDetails : ScreenApp("school_details", R.drawable.school_icon, R.string.school)
+    object SubjectsScreen : ScreenApp("subject", R.drawable.subject, R.string.subject)
+    object StudentsScreen : ScreenApp("student", R.drawable.student, R.string.student)
+    object SchoolsScreen : ScreenApp("school", R.drawable.school, R.string.school)
+    object SubjectDetails : ScreenApp("subject_details", R.drawable.subject, R.string.subject)
+    object StudentDetails : ScreenApp("student_details", R.drawable.student, R.string.student)
+    object SchoolDetails : ScreenApp("school_details", R.drawable.school, R.string.school)
 }

@@ -4,6 +4,7 @@
     package="com.example.projetocompose02">
 
     <application
+        android:name=".SchoolApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
