@@ -10,6 +10,7 @@ import java.lang.IllegalArgumentException
 class SubjectViewModel(private val dao: SubjectDao): ViewModel() {
 
     val allSubjects: LiveData<List<Subject>> = dao.getSubject().asLiveData()
+
     val allSubjectsWithStudents: LiveData<List<SubjectWithStudents>> = dao.getSubjectWithStudents().asLiveData()
 
     fun insert(subject: Subject){
@@ -28,6 +29,24 @@ class SubjectViewModel(private val dao: SubjectDao): ViewModel() {
         viewModelScope.launch {
             dao.delete(subject)
         }
+    }
+
+    fun getSubject(id: Int): Subject{
+        allSubjects.value?.forEach{
+            if(id == it.id){
+                return it
+            }
+        }
+
+        return Subject(
+            -1,
+            "",
+            ""
+        )
+    }
+
+    fun getLastIdSubject(): Int{
+        return allSubjects.value?.get(allSubjects.value?.size?:0)?.id?:0
     }
 
     class SubjectViewModelFactory(private val dao: SubjectDao) : ViewModelProvider.Factory{

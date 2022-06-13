@@ -18,7 +18,7 @@ import com.example.projetocompose02.data.models.Subject
         Student::class,
         Subject::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class SchoolDatabase : RoomDatabase() {

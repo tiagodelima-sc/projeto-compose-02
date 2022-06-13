@@ -18,16 +18,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.projetocompose02.ui.theme.ProjetoCompose02Theme
 import com.example.projetocompose02.views.school.SchoolViewModel
 import com.example.projetocompose02.views.student.StudentViewModel
 import com.example.projetocompose02.views.subject.SubjectViewModel
 import com.example.projetocompose02.views.school.SchoolsScreen
+import com.example.projetocompose02.views.student.AddEditStudenScreen
+import com.example.projetocompose02.views.student.AddEditStudentViewModel
 import com.example.projetocompose02.views.student.StudentsScreen
+import com.example.projetocompose02.views.subject.AddEditSubjectScreen
+import com.example.projetocompose02.views.subject.AddEditSubjectViewModel
 import com.example.projetocompose02.views.subject.SubjectsScreen
 
 
@@ -35,6 +41,8 @@ import com.example.projetocompose02.views.subject.SubjectsScreen
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        (this.applicationContext as SchoolApplication).schooldatabase.studentDao()
 
         val subjectViewModel: SubjectViewModel by viewModels<SubjectViewModel> {
             SubjectViewModel.SubjectViewModelFactory(
@@ -54,6 +62,13 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val addEditSubjectViewModel: AddEditSubjectViewModel by viewModels()
+        addEditSubjectViewModel.setIdSubject(subjectViewModel.getLastIdSubject())
+
+
+        val addEditStudentViewModel: AddEditStudentViewModel by viewModels()
+        addEditStudentViewModel.setIdStudent(studentViewModel.getLastIdStudent())
+
         setContent {
             ProjetoCompose02Theme {
                 Surface(
@@ -63,7 +78,9 @@ class MainActivity : ComponentActivity() {
                     SchoolApp(
                         subjectViewModel,
                         studentViewModel,
-                        schoolViewModel
+                        schoolViewModel,
+                        addEditSubjectViewModel,
+                        addEditStudentViewModel
                     )
                 }
             }
@@ -77,6 +94,8 @@ fun SchoolApp(
     subjectViewModel: SubjectViewModel,
     studentViewModel: StudentViewModel,
     schoolViewModel: SchoolViewModel,
+    addEditSubjectViewModel: AddEditSubjectViewModel,
+    addEditStudentViewModel: AddEditStudentViewModel,
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -90,7 +109,7 @@ fun SchoolApp(
                     BottomNavigationItem(
                         icon = {
                             Icon(
-                                modifier = Modifier.size(50.dp),
+                                modifier = Modifier.size(45.dp),
                                 painter = painterResource(id = botNavScreen.icon),
                                 contentDescription = stringResource(id = botNavScreen.name)
                             )
@@ -122,11 +141,47 @@ fun SchoolApp(
                 SchoolsScreen()
             }
             composable(ScreenApp.StudentsScreen.route) {
-                StudentsScreen()
+                StudentsScreen(navController, studentViewModel)
             }
             composable(ScreenApp.SubjectsScreen.route) {
-                SubjectsScreen()
+                SubjectsScreen(navController, subjectViewModel)
             }
+
+            composable(
+                route = "student/{id}",
+                arguments = listOf(navArgument("id"){
+                    defaultValue = -1
+                    type = NavType.IntType
+                })
+            ){
+                val id = it.arguments?.getInt("id") ?: -1
+                val student = studentViewModel.getStudent(id)
+                AddEditStudenScreen(
+                    navController,
+                    student,
+                    studentViewModel,
+                    addEditStudentViewModel
+                )
+            }
+
+            composable(
+                route = "subject/{id}",
+                arguments = listOf(navArgument("id"){
+                    defaultValue = -1
+                    type = NavType.IntType
+                })
+            ){
+                val subject = subjectViewModel.getSubject(
+                    it.arguments?.getInt("id") ?: -1
+                )
+                AddEditSubjectScreen(
+                    navController,
+                    subject,
+                    subjectViewModel,
+                    addEditSubjectViewModel,
+                )
+            }
+
             composable(ScreenApp.SchoolDetails.route) {
 
             }
