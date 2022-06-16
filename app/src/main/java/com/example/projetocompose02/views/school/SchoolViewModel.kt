@@ -3,7 +3,6 @@ package com.example.projetocompose02.views.school
 import androidx.lifecycle.*
 import com.example.projetocompose02.data.daos.SchoolDao
 import com.example.projetocompose02.data.models.School
-import com.example.projetocompose02.data.models.relations.SchoolWithStudents
 import com.example.projetocompose02.data.models.relations.SchoolWithSubjectsWithStudents
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
@@ -11,7 +10,7 @@ import java.lang.IllegalArgumentException
 class SchoolViewModel(private val dao: SchoolDao): ViewModel() {
 
     val allSchool: LiveData<List<School>> = dao.getSchool().asLiveData()
-    val allSchoolWithStudents: LiveData<List<SchoolWithSubjectsWithStudents>> = dao.getSchoolWithSubjectsWithStudents().asLiveData()
+   val allSchoolWithStudents: LiveData<List<SchoolWithSubjectsWithStudents>> = dao.getSchoolWithSubjectsWithStudents().asLiveData()
 
     fun insert(school: School){
         viewModelScope.launch {
@@ -29,6 +28,24 @@ class SchoolViewModel(private val dao: SchoolDao): ViewModel() {
         viewModelScope.launch {
             dao.delete(school)
         }
+    }
+
+    fun getSchool(id: Int): School{
+        allSchool.value?.forEach{
+            if(id == it.id){
+                return it
+            }
+        }
+        return School(
+            -1,
+            "",
+            "",
+            ""
+        )
+    }
+
+    fun getLastIdSchool(): Int{
+        return allSchool.value?.get(allSchool.value?.size?:0)?.id?:0
     }
 
     class SchoolViewModelFactory(private val dao: SchoolDao) : ViewModelProvider.Factory {

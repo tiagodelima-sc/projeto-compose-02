@@ -9,7 +9,7 @@ import com.example.projetocompose02.data.models.Subject
 data class StudentWithSubjects(
     @Embedded val student: Student,
     @Relation(
-        parentColumn = "schoolName",
+        parentColumn = "name",
         entityColumn = "id",
     )
     val subjects: List<Subject>

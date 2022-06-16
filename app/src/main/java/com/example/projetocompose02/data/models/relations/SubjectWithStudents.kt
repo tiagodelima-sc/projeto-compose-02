@@ -10,7 +10,7 @@ data class SubjectWithStudents(
     @Embedded val subject: Subject,
     @Relation(
         parentColumn = "id",
-        entityColumn = "schoolName",
+        entityColumn = "name",
     )
     val students: List<Student>
 )

@@ -112,7 +112,7 @@ fun AddEditStudentForm(
                 },
                 value = "${semester.value}",
                 onValueChange = {
-                    addEditStudentViewModel.semester.value = it.toInt()
+                    addEditStudentViewModel.semester.value = it
                 }
             )
             OutlinedTextField(
@@ -124,7 +124,7 @@ fun AddEditStudentForm(
                 },
                 value = "${age.value}",
                 onValueChange = {
-                    addEditStudentViewModel.age.value = it.toInt()
+                    addEditStudentViewModel.age.value = it
                 }
             )
             OutlinedTextField(

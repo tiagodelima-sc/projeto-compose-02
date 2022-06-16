@@ -8,8 +8,8 @@ class AddEditStudentViewModel : ViewModel() {
 
     private val _id: MutableLiveData<Int> = MutableLiveData()
     val name: MutableLiveData<String> = MutableLiveData()
-    val semester: MutableLiveData<Int> = MutableLiveData()
-    val age: MutableLiveData<Int> = MutableLiveData()
+    val semester: MutableLiveData<String> = MutableLiveData()
+    val age: MutableLiveData<String> = MutableLiveData()
     val schoolName: MutableLiveData<String> = MutableLiveData()
 
     fun insertStudent(
@@ -27,8 +27,8 @@ class AddEditStudentViewModel : ViewModel() {
         idTemporario++
         _id.value = idTemporario
         name.value = ""
-        semester.value = 0
-        age.value = 0
+        semester.value = ""
+        age.value = ""
         schoolName.value = ""
     }
 

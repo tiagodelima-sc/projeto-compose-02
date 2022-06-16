@@ -25,6 +25,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.projetocompose02.ui.theme.ProjetoCompose02Theme
+import com.example.projetocompose02.views.school.AddEditSchoolScreen
+import com.example.projetocompose02.views.school.AddEditSchoolViewModel
 import com.example.projetocompose02.views.school.SchoolViewModel
 import com.example.projetocompose02.views.student.StudentViewModel
 import com.example.projetocompose02.views.subject.SubjectViewModel
@@ -62,6 +64,9 @@ class MainActivity : ComponentActivity() {
             )
         }
 
+        val addEditSchoolViewModel: AddEditSchoolViewModel by viewModels()
+        addEditSchoolViewModel.setIdSchool(schoolViewModel.getLastIdSchool())
+
         val addEditSubjectViewModel: AddEditSubjectViewModel by viewModels()
         addEditSubjectViewModel.setIdSubject(subjectViewModel.getLastIdSubject())
 
@@ -80,7 +85,8 @@ class MainActivity : ComponentActivity() {
                         studentViewModel,
                         schoolViewModel,
                         addEditSubjectViewModel,
-                        addEditStudentViewModel
+                        addEditStudentViewModel,
+                        addEditSchoolViewModel
                     )
                 }
             }
@@ -96,6 +102,7 @@ fun SchoolApp(
     schoolViewModel: SchoolViewModel,
     addEditSubjectViewModel: AddEditSubjectViewModel,
     addEditStudentViewModel: AddEditStudentViewModel,
+    addEditSchoolViewModel: AddEditSchoolViewModel
 ) {
     val navController = rememberNavController()
     Scaffold(
@@ -138,7 +145,7 @@ fun SchoolApp(
             startDestination = ScreenApp.SchoolsScreen.route
         ) {
             composable(ScreenApp.SchoolsScreen.route) {
-                SchoolsScreen()
+                SchoolsScreen(navController, schoolViewModel)
             }
             composable(ScreenApp.StudentsScreen.route) {
                 StudentsScreen(navController, studentViewModel)
@@ -179,6 +186,24 @@ fun SchoolApp(
                     subject,
                     subjectViewModel,
                     addEditSubjectViewModel,
+                )
+            }
+
+            composable(
+                route = "school/{id}",
+                arguments = listOf(navArgument("id"){
+                    defaultValue = -1
+                    type = NavType.IntType
+                })
+            ){
+                val school = schoolViewModel.getSchool(
+                    it.arguments?.getInt("id") ?: -1
+                )
+                AddEditSchoolScreen(
+                    navController,
+                    school,
+                    schoolViewModel,
+                    addEditSchoolViewModel
                 )
             }
 

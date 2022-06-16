@@ -41,8 +41,8 @@ class StudentViewModel(private val dao: StudentDao) : ViewModel() {
         return Student(
             -1,
             "",
-            0,
-            0,
+            "",
+            "",
             ""
         )
     }

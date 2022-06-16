@@ -15,7 +15,7 @@ data class SchoolWithSubjectsWithStudents(
     val subject01: SubjectWithStudents,
     @Relation(
         entity = Subject::class,
-        parentColumn = "schoolName2",
+        parentColumn = "schoolName1",
         entityColumn = "id"
     )
     val subject02: SubjectWithStudents,

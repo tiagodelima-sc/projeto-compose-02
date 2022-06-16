@@ -2,6 +2,8 @@ package com.example.projetocompose02.data.models
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
+import androidx.room.ForeignKey.RESTRICT
 import androidx.room.PrimaryKey
 
 @Entity(
@@ -10,21 +12,18 @@ import androidx.room.PrimaryKey
         ForeignKey(
             entity = Subject::class,
             parentColumns = arrayOf("id"),
-            childColumns = arrayOf("schoolName1"),
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = Subject::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("schoolName2"),
-            onDelete = ForeignKey.CASCADE
-        ),
+            childColumns = arrayOf("id"),
+            onDelete = RESTRICT,
+            onUpdate = CASCADE
+        )
     ]
 )
 data class School(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val schoolName1: String,
-    val schoolName2: String
+    val city: String,
+    val state: String
 ) {
 }
+
